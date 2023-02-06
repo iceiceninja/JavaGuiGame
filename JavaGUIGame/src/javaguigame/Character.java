@@ -14,6 +14,7 @@ public abstract class Character{
     armorBehavior armor;
     String name;
     int health;
+    Ability[] abilityList;
     
     
     void setWeapon(weaponBehavior w)
@@ -25,4 +26,14 @@ public abstract class Character{
         this.armor = a;
     }
     public abstract void fight(Character target);
+    
+    void displayAbilities()
+    {
+        battleSim.addText("Here is a list of the abilities you have:");
+        battleSim.addText("Ability:\tCooldown");
+        for(Ability ability: abilityList)
+        {
+            battleSim.addText(ability.name + ":\t" + ability.currentCooldown);
+        }
+    }
 }

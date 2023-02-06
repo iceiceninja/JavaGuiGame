@@ -16,6 +16,7 @@ public class Knight extends Character{
         this.armor = new plateArmor();
         this.health = 10;
         this.name = name;
+        abilityList = new Ability[]{new Bolster()};
     }
     
     @Override

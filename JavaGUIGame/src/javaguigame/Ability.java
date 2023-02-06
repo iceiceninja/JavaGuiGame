@@ -8,8 +8,11 @@ package javaguigame;
  *
  * @author Josh Bonham
  */
-public abstract class Spell {
+public abstract class Ability {
     String name;
-    public abstract int cast();
+    String description;
+    int currentCooldown = 0;
+    int cooldown;
+    public abstract boolean use();
     
 }

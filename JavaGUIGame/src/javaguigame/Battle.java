@@ -64,21 +64,52 @@ public class Battle {
     }
     void endOfRoundCleanup()
     {
+//        for(Character enemy : enemies)
+//        {
+//            addText(enemy.name);
+////            addText()
+//        }
         for(int i = 0; i < enemies.size(); i++)
         {
             if(enemies.get(i).health <= 0)
             {
                 addText("Enemy has perished: " + enemies.get(i).name);
                 removeEnemy(enemies.get(i));
+                
+                //The below code is in place because once removed, the enemies get shifted over
+                // And if the next enemy is also dead they will not die until the next
+                // clean up phase
+                try{
+                    while(enemies.get(i).health <= 0)
+                    {
+                        addText("Enemy has perished: " + enemies.get(i).name);
+                        removeEnemy(enemies.get(i));
+                    }
+                }catch(Exception e)
+                {}
+ //                enemies.clear();
+            }
+        }
+        for(Ability ability : player.abilityList)
+        {
+            if(ability.currentCooldown > 0)
+            {
+                ability.currentCooldown -= 1;
             }
         }
     }
     void printEnemies()
     {
         addText("You see the following enemies:");
-        for(Character enemy : enemies)
+        if(enemies.isEmpty())
         {
-            addText(enemy.name);
+            addText("None");
+        }
+        else{
+            for(Character enemy : enemies)
+            {
+                addText(enemy.name);
+            }
         }
     }
 }

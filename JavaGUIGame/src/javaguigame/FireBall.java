@@ -4,15 +4,28 @@
  */
 package javaguigame;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Josh Bonham
  */
-public class FireBall extends Spell{
-
-    @Override
-    public int cast() {
-        return (int) Math.floor(Math.random()*(8-4+1)+4);
+public class FireBall extends Ability{
+    public FireBall()
+    {
+        name = "Fireball";
+        description = "An explosive orb of bright orange shoots towards your foes!";
+        cooldown = 2;
     }
-    
+    @Override
+    public boolean use() {
+        for(Character enemy : battleSim.battleManager.enemies)
+        {
+            int damage = (int) Math.floor(Math.random()*(8-4+1)+4);
+            battleSim.addText(enemy.name + " has taken " + damage + " damage");
+            enemy.health -= damage;
+        }  
+        currentCooldown += cooldown;
+        return true;
+    }
 }

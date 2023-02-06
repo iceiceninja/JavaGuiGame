@@ -8,8 +8,8 @@ package javaguigame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
 import javax.swing.JFrame;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -27,25 +27,29 @@ public class battleSim implements ActionListener{
     static Character knight;
     static Character archer;
     static Character player;
+    static Character wizard;
     static Battle battleManager;
+    static JScrollBar vertical;
     public static void main(String[] args)
     {
         initializeGUI();
         knight = new Knight("Knight");
         archer = new Archer("Archer");
-        player = new Wizard("Player");
+        wizard = new Wizard("Wizard");
+        player = new Archer("Player");
 
         addText("A drunken knight approaches you, wearing a set of full metal armor...");
 
         battleManager = new Battle(player);  
         battleManager.addEnemy(knight);
         battleManager.addEnemy(archer);
+        battleManager.addEnemy(wizard);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == input)
-        {
+        {           
             output.append("\n" + input.getText());
             setLastInput(input.getText());
             input.setText("");
@@ -68,6 +72,8 @@ public class battleSim implements ActionListener{
     static void addText(String text)
     {
         output.append("\n" + text);
+        scroll.validate();
+        vertical.setValue(vertical.getMaximum());
     }
     static boolean decipherInput(String text)
     {
@@ -94,21 +100,34 @@ public class battleSim implements ActionListener{
                 case "drink":
                     return true;
                 case "use":
-                    return true;
+                    for(Ability ability : player.abilityList)
+                    {
+                        if(ability.name.toLowerCase().equals(noun.toLowerCase()) && 
+                                ability.currentCooldown == 0)
+                        {
+//                            ability.use();
+                            addText(ability.description);
+                            return ability.use();
+                        }
+                    }
+                    break;
                 case "enemies":
                     battleManager.printEnemies();
                     break;
                 case "health":
                     addText("Player Health: " + player.health);
                     break;
-                case "cast":
+                case "abilities":
+                    player.displayAbilities();
                     break;
                 case "help":
-                   String[] commands = {"cast","health","enemies","use","drink","talk","fight","help"};
+                   String[] commands = {"health","enemies","use","drink","talk","fight","help","abilities","skip"};
                     for (String command : commands) {
                         addText(command);
                     }
                     break;
+                case "skip":
+                    return true;
                 default:
                     addText("Verb not recognized: " + verb);
         }
@@ -121,6 +140,7 @@ public class battleSim implements ActionListener{
         input = new JTextField();
         scroll = new JScrollPane (output, 
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        vertical = scroll.getVerticalScrollBar();
         
         output.setText("When you enter commands, enter them like [VERB] [NOUN] Ex:");
         addText("fight archer");
@@ -129,11 +149,7 @@ public class battleSim implements ActionListener{
         addText("Type \"help\" for a list of commands");
        
         output.setEditable(false);
-                
-        scroll.getVerticalScrollBar().addAdjustmentListener((AdjustmentEvent e) -> {
-            e.getAdjustable().setValue(e.getAdjustable().getMaximum());
-        });
-        
+              
         mainFrame.setLayout(new GridLayout());
         mainFrame.add(scroll);
         mainFrame.add(input);

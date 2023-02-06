@@ -15,6 +15,7 @@ public class Archer extends Character{
         this.weapon = new BowAndArrow();
         this.health = 7;
         this.name = name;
+        abilityList = new Ability[]{new Speed()};
     }
     @Override
     public void fight(Character target) {
