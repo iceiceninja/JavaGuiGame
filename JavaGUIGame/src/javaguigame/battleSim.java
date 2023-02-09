@@ -14,7 +14,7 @@ public class battleSim{
         
     static Character knight;
     static Character archer;
-    static Character player;
+    public static Character player;
     static Character wizard;
     static Battle battle;
     
@@ -66,5 +66,26 @@ public class battleSim{
         battle.addEnemy(archer);
         battle.addEnemy(wizard);
     }
+    public static void changeClass(String className)
+    {
+        switch (className.toLowerCase()) 
+        {
+            case "knight":
+                battleSim.player = new Knight("Player");
+                break;
+            case "archer":
+                battleSim.player = new Archer("Player");
+                break;
+            case "wizard":
+                battleSim.player = new Wizard("Player");
+                break;
+            default:
+                addText("Not a class");
+                addText("Enter \'class (nameOfClass)\'");
+                addText("Some examples of classes are: knight, wizard, or archer");
+                break;
+            }    
+            battle.changePlayer(player);
+        }
     
 }

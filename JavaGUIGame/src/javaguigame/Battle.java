@@ -112,4 +112,8 @@ public class Battle {
             }
         }
     }
+    void changePlayer(Character player)
+    {
+        this.player = player;
+    }
 }

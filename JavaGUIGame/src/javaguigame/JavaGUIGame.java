@@ -98,7 +98,7 @@ public class JavaGUIGame implements ActionListener{
                     battleSim.player.displayAbilities();
                     break;
                 case "help":
-                   String[] commands = {"health","enemies","use","fight","help","abilities","skip","inventory","gold"};
+                   String[] commands = {"health","enemies","use","fight","help","abilities","skip","inventory","gold","class"};
                     for (String command : commands) {
                         addText(command);
                     }
@@ -111,7 +111,9 @@ public class JavaGUIGame implements ActionListener{
                 case "inventory":
                     inventory.display();
                     return false;
-                
+                case "class":
+                    battleSim.changeClass(noun);
+                    return false;
                 default:
                     if(currentLocation.interactions(words))
                     {
