@@ -20,10 +20,10 @@ public class Archer extends Character{
     @Override
     public void fight(Character target) {
 //        System.out.println("Archer Fights!");
-        battleSim.addText("Archer Fights");
+        JavaGUIGame.addText("Archer Fights");
         int damage = weapon.useWeapon();
         target.health -= damage;
-        battleSim.addText(target.name+" has taken " + damage + " damage!");
+        JavaGUIGame.addText(target.name+" has taken " + damage + " damage!");
     }
     
 }

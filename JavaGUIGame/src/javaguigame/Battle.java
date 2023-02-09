@@ -4,13 +4,13 @@
  */
 package javaguigame;
 import java.util.ArrayList;
-import static javaguigame.battleSim.addText;
+import static javaguigame.JavaGUIGame.addText;
 /**
  *
  * @author Josh Bonham
  */
 public class Battle {
-    ArrayList<Character> enemies = new ArrayList<>();
+    static ArrayList<Character> enemies = new ArrayList<>();
     Character player;
     Battle (Character player)
     {
@@ -98,7 +98,7 @@ public class Battle {
             }
         }
     }
-    void printEnemies()
+    static void printEnemies()
     {
         addText("You see the following enemies:");
         if(enemies.isEmpty())

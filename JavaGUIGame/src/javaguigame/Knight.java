@@ -23,14 +23,14 @@ public class Knight extends Character{
     public void fight(Character target)
     {
         
-            battleSim.addText("Knight Fights");
+            JavaGUIGame.addText("Knight Fights");
             int damage = weapon.useWeapon();
             try{
                 target.health -= damage;
-                battleSim.addText(target.name+" has taken " + damage + " damage!");
+                JavaGUIGame.addText(target.name+" has taken " + damage + " damage!");
             }catch(Exception e)
             {
-                battleSim.addText("Invalid Target");
+                JavaGUIGame.addText("Invalid Target");
             }
             
     }

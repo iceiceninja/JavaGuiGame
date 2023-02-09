@@ -6,10 +6,10 @@ package javaguigame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static javaguigame.battleSim.battleManager;
-import static javaguigame.battleSim.decipherInput;
-import static javaguigame.battleSim.input;
-import static javaguigame.battleSim.output;
+import static javaguigame.JavaGUIGame.decipherInput;
+import static javaguigame.JavaGUIGame.input;
+import static javaguigame.JavaGUIGame.output;
+
 
 /**
  *
@@ -27,9 +27,9 @@ public class Speed extends Ability implements ActionListener{
     }
     @Override
     public boolean use() {
-        battleSim.input.removeActionListener(battleSim.input.getActionListeners()[0]);        
-        battleSim.input.addActionListener(new Speed());
-        battleSim.addText("Action obtained");
+        input.removeActionListener(JavaGUIGame.input.getActionListeners()[0]);        
+        input.addActionListener(new Speed());
+        JavaGUIGame.addText("Action obtained");
 //        for(ActionListener al : battleSim.input.getActionListeners())
 //        {
 //            battleSim.addText(al.toString());
@@ -40,7 +40,7 @@ public class Speed extends Ability implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == battleSim.input)
+        if(e.getSource() == JavaGUIGame.input)
         {
             output.append("\n" + input.getText());
             String lastInput = input.getText();
@@ -48,13 +48,13 @@ public class Speed extends Ability implements ActionListener{
             if(decipherInput(lastInput))
             {
                 extraTurnCounter++;
-                battleManager.endOfRoundCleanup();
+                battleSim.battle.endOfRoundCleanup();
                 if(extraTurnCounter%2 == 0)
                 {
                     abilityFinished = true;
-                    input.removeActionListener(battleSim.input.getActionListeners()[0]);
-                    input.addActionListener(new battleSim());
-                    battleSim.addText("Speed finished");
+                    input.removeActionListener(JavaGUIGame.input.getActionListeners()[0]);
+                    input.addActionListener(new JavaGUIGame());
+                    JavaGUIGame.addText("Speed finished");
                 }
             }
         }

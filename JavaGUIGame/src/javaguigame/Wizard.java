@@ -19,10 +19,10 @@ public class Wizard extends Character{
     }
     @Override
     public void fight(Character target) {
-        battleSim.addText("Wizard Fights");
+        JavaGUIGame.addText("Wizard Fights");
         int damage = weapon.useWeapon();
         target.health -= damage;
-        battleSim.addText(target.name+" has taken " + damage + " damage!");
+        JavaGUIGame.addText(target.name+" has taken " + damage + " damage!");
     }
     
 }

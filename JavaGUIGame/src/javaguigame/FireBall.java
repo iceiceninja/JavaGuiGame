@@ -19,10 +19,10 @@ public class FireBall extends Ability{
     }
     @Override
     public boolean use() {
-        for(Character enemy : battleSim.battleManager.enemies)
+        for(Character enemy : battleSim.battle.enemies)
         {
             int damage = (int) Math.floor(Math.random()*(8-4+1)+4);
-            battleSim.addText(enemy.name + " has taken " + damage + " damage");
+            JavaGUIGame.addText(enemy.name + " has taken " + damage + " damage");
             enemy.health -= damage;
         }  
         currentCooldown += cooldown;

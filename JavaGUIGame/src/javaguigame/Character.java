@@ -17,6 +17,7 @@ public abstract class Character{
     Ability[] abilityList;
     
     
+    
     void setWeapon(weaponBehavior w)
     {
         this.weapon = w;
@@ -29,11 +30,11 @@ public abstract class Character{
     
     void displayAbilities()
     {
-        battleSim.addText("Here is a list of the abilities you have:");
-        battleSim.addText("Ability:\tCooldown");
+        JavaGUIGame.addText("Here is a list of the abilities you have:");
+        JavaGUIGame.addText("Ability:\tCooldown");
         for(Ability ability: abilityList)
         {
-            battleSim.addText(ability.name + ":\t" + ability.currentCooldown);
+            JavaGUIGame.addText(ability.name + ":\t" + ability.currentCooldown);
         }
     }
 }
